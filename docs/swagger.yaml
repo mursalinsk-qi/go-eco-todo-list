@@ -1,0 +1,41 @@
+definitions:
+  models.Todo:
+    properties:
+      complete:
+        type: boolean
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+info:
+  contact:
+    email: mursalin.sk@quantuminventions.com
+    name: Mursalin Sk
+  description: This is a simple todo list for practice CRUD Operation with Eco framework
+    and PostgreSQL DB
+  title: Todo List App
+  version: "1.0"
+paths:
+  /api/todos/create:
+    post:
+      consumes:
+      - application/json
+      description: store a new todo in list
+      parameters:
+      - description: enter your todo title
+        in: body
+        name: title
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Todo'
+      summary: create todo
+      tags:
+      - todos
+swagger: "2.0"

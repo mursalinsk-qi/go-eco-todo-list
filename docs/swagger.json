@@ -1,0 +1,63 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a simple todo list for practice CRUD Operation with Eco framework and PostgreSQL DB",
+        "title": "Todo List App",
+        "contact": {
+            "name": "Mursalin Sk",
+            "email": "mursalin.sk@quantuminventions.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/todos/create": {
+            "post": {
+                "description": "store a new todo in list",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "todos"
+                ],
+                "summary": "create todo",
+                "parameters": [
+                    {
+                        "description": "enter your todo title",
+                        "name": "title",
+                        "in": "body",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Todo"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Todo": {
+            "type": "object",
+            "properties": {
+                "complete": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
