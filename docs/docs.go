@@ -18,6 +18,25 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/todos": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "todos"
+                ],
+                "summary": "get all todos",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.TodoList"
+                        }
+                    }
+                }
+            }
+        },
         "/api/todos/create": {
             "post": {
                 "description": "store a new todo in list",
@@ -34,10 +53,10 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "enter your todo title",
-                        "name": "title",
+                        "name": "value",
                         "in": "body",
                         "schema": {
-                            "type": "object"
+                            "$ref": "#/definitions/models.CreateTodo"
                         }
                     }
                 ],
@@ -50,9 +69,123 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/todos/delete/{id}": {
+            "delete": {
+                "description": "delete a todo by its id",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "todos"
+                ],
+                "summary": "delete todo",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "enter id to update",
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Todo"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/todos/update/{id}": {
+            "patch": {
+                "description": "update a todo by its id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "todos"
+                ],
+                "summary": "update todo",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "enter id to update",
+                        "name": "id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "enter values",
+                        "name": "value",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateTodo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Todo"
+                        }
+                    },
+                    "404": {
+                        "description": "id not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/todos/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "todos"
+                ],
+                "summary": "get a single todos",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "enter a id",
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Todo"
+                        }
+                    },
+                    "404": {
+                        "description": "id not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "models.CreateTodo": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
         "models.Todo": {
             "type": "object",
             "properties": {
@@ -61,6 +194,28 @@ const docTemplate = `{
                 },
                 "id": {
                     "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.TodoList": {
+            "type": "object",
+            "properties": {
+                "TodoList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Todo"
+                    }
+                }
+            }
+        },
+        "models.UpdateTodo": {
+            "type": "object",
+            "properties": {
+                "complete": {
+                    "type": "boolean"
                 },
                 "title": {
                     "type": "string"

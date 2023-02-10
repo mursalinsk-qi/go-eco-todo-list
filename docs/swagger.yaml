@@ -1,10 +1,29 @@
 definitions:
+  models.CreateTodo:
+    properties:
+      title:
+        type: string
+    type: object
   models.Todo:
     properties:
       complete:
         type: boolean
       id:
         type: integer
+      title:
+        type: string
+    type: object
+  models.TodoList:
+    properties:
+      TodoList:
+        items:
+          $ref: '#/definitions/models.Todo'
+        type: array
+    type: object
+  models.UpdateTodo:
+    properties:
+      complete:
+        type: boolean
       title:
         type: string
     type: object
@@ -17,6 +36,39 @@ info:
   title: Todo List App
   version: "1.0"
 paths:
+  /api/todos:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TodoList'
+      summary: get all todos
+      tags:
+      - todos
+  /api/todos/{id}:
+    get:
+      parameters:
+      - description: enter a id
+        in: path
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Todo'
+        "404":
+          description: id not found
+          schema:
+            type: string
+      summary: get a single todos
+      tags:
+      - todos
   /api/todos/create:
     post:
       consumes:
@@ -25,9 +77,9 @@ paths:
       parameters:
       - description: enter your todo title
         in: body
-        name: title
+        name: value
         schema:
-          type: object
+          $ref: '#/definitions/models.CreateTodo'
       produces:
       - application/json
       responses:
@@ -36,6 +88,53 @@ paths:
           schema:
             $ref: '#/definitions/models.Todo'
       summary: create todo
+      tags:
+      - todos
+  /api/todos/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete a todo by its id
+      parameters:
+      - description: enter id to update
+        in: path
+        name: id
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Todo'
+      summary: delete todo
+      tags:
+      - todos
+  /api/todos/update/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: update a todo by its id
+      parameters:
+      - description: enter id to update
+        in: path
+        name: id
+        type: integer
+      - description: enter values
+        in: body
+        name: value
+        schema:
+          $ref: '#/definitions/models.UpdateTodo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Todo'
+        "404":
+          description: id not found
+          schema:
+            type: string
+      summary: update todo
       tags:
       - todos
 swagger: "2.0"
