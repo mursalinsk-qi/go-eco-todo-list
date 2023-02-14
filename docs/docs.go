@@ -90,9 +90,15 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "id not found",
                         "schema": {
-                            "$ref": "#/definitions/models.Todo"
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "id not found",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }

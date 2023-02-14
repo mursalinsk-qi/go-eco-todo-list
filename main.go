@@ -31,7 +31,7 @@ func main() {
 	e.DELETE("/api/todos/delete/:id",controllers.DeleteTodo)
 	e.GET("/swagger/*",echoSwagger.WrapHandler)
 
-	e.Logger.Fatal(e.Start(":5000"))
+	e.Logger.Fatal(e.Start(":8080"))
 }
 
 

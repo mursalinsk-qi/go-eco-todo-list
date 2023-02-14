@@ -140,7 +140,8 @@ func UpdateTodo(c echo.Context) error {
 // @Tags         todos
 // @Param        id path int false "enter id to update"
 // @Accept       application/json 
-// @Success      200  {object} models.Todo
+// @Success      200  string message "id not found"
+// @Failure      404  string message "id not found"
 // @Router       /api/todos/delete/{id} [delete]
 func DeleteTodo(c echo.Context) error {
 	id := c.Param("id")
@@ -150,7 +151,7 @@ func DeleteTodo(c echo.Context) error {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		return c.JSON(http.StatusAccepted, "todo deleted")
+		return c.JSON(http.StatusOK, "todo deleted")
 	}
 	return c.String(http.StatusOK, "ok")
 }
