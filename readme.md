@@ -2,7 +2,11 @@
 # TodoList
 A simple todo list app for practice CRUD functionality using ECO web framework and postgreSQL database
 
-
+# Run this app
+after cloning this repo use this command
+`
+docker-compose up --build  
+`
 ## Features
 
 - Creating a new task
@@ -14,7 +18,7 @@ A simple todo list app for practice CRUD functionality using ECO web framework a
 # API endpoints
 ## GET
 #### get all todos
-`http://localhost:5000/api/todos`
+`http://localhost:8080/api/todos`
 #### Response
 
 ```
@@ -39,7 +43,7 @@ A simple todo list app for practice CRUD functionality using ECO web framework a
 }
 ```
 #### get single todo
-`http://localhost:5000/api/todos/{id}`
+`http://localhost:8080/api/todos/{id}`
 #### Response
 
 ```
@@ -52,7 +56,7 @@ A simple todo list app for practice CRUD functionality using ECO web framework a
 
 ## POST
 #### create new todo
-`http://localhost:5000/api/todos/create`
+`http://localhost:8080/api/todos/create`
 - Request Body
 ```
 {
@@ -70,7 +74,7 @@ A simple todo list app for practice CRUD functionality using ECO web framework a
 
 ## PATCH
 #### update todo
-`http://localhost:5000/api/todos/update/{id}`
+`http://localhost:8080/api/todos/update/{id}`
 - Request Body
 ```
 {
@@ -94,7 +98,7 @@ id not found
 
 ## DELETE
 #### update todo
-`http://localhost:5000/api/todos/delete/{id}`
+`http://localhost:8080/api/todos/delete/{id}`
 - Response
 200
 ```
