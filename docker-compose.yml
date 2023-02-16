@@ -10,15 +10,23 @@ services:
       - "5432:5432"
     volumes: 
       - dbdata:/var/lib/postgresql/data
-
+  redis:
+    container_name: 'redis'
+    image: redis:latest
+    ports:
+      - '127.0.0.1:6379:6379'
+    volumes:
+      - 'redisdata:/data'
   go:
     container_name: go
     build:
       context: .
     depends_on:
       - "postgres"
+      - "redis"
     ports:
       - "8080:8080"
 
 volumes:
   dbdata:
+  redisdata:

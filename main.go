@@ -3,6 +3,7 @@ package main
 import (
 	"crudpractice/controllers"
 	"crudpractice/database"
+	"crudpractice/redis"
 	_ "crudpractice/docs"
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"
@@ -10,6 +11,7 @@ import (
 
 func init() {
 	database.ConnectDatabase()
+	redis.ConnectToRedis()
 }
 
 // @title Todo List App

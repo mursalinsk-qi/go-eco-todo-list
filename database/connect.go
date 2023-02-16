@@ -22,6 +22,10 @@ func ConnectDatabase() {
 	if err = database.Ping(); err != nil {
 		panic(err)
 	} else {
+		_,err:=database.Exec("CREATE  TABLE IF NOT EXISTS todos(id SERIAL NOT NULL PRIMARY KEY,title VARCHAR(50) NOT NULL,iscomplete BOOLEAN DEFAULT FALSE)")
+		if err!=nil{
+			fmt.Println(err)
+		}
 		fmt.Println("Database Connected")
 	}
 
